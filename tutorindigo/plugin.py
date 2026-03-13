@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 import typing as t
 from glob import glob
@@ -22,10 +23,8 @@ config: t.Dict[str, t.Dict[str, t.Any]] = {
     "defaults": {
         "VERSION": __version__,
         "WELCOME_MESSAGE": "Plataforma de entrenamiento digital educativo para instituciones públicas y de interés educativo",
-        "PRIMARY_COLOR": "#82c5be",  # Indigo
-        # Footer links are dictionaries with a "title" and "url"
-        # To remove all links, run:
-        # tutor config save --set INDIGO_FOOTER_NAV_LINKS=[]
+        "PRIMARY_COLOR": "#82c5be",
+        "ENABLE_DARK_TOGGLE": True,  # deja esto como está
         "FOOTER_NAV_LINKS": [
             {"title": "Sobre el proyecto", "url": "/about"},
             {"title": "Boletín informativo", "url": "https://mail.mexicox.gob.mx/lists/?p=subscribe"},
@@ -120,7 +119,7 @@ for mfe in indigo_styled_mfes:
             (
                 f"mfe-dockerfile-post-npm-install-{mfe}",
                 """
-RUN npm install '@edx/brand@github:@edly-io/brand-openedx#indigo-2.4.3'
+RUN npm install '@edx/brand@github:@edly-io/brand-openedx#indigo-2.5.0'
 """,  # noqa: E501
             ),
         ]
@@ -129,7 +128,7 @@ RUN npm install '@edx/brand@github:@edly-io/brand-openedx#indigo-2.4.3'
 hooks.Filters.ENV_PATCHES.add_item(
     (
         "mfe-dockerfile-post-npm-install-authn",
-        "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#indigo-2.4.3'",
+        "RUN npm install '@edx/brand@github:@edly-io/brand-openedx#indigo-2.5.0'",
     )
 )
 
@@ -296,3 +295,26 @@ PLUGIN_SLOTS.add_items(
         ),
     ]
 )
+
+paragon_theme_urls = {
+    "variants": {
+        "light": {
+            "urls": {
+                "default": "https://raw.githubusercontent.com/edly-io/brand-openedx/refs/heads/ulmo/indigo/dist/light.min.css",
+                "brandOverride": "https://raw.githubusercontent.com/edly-io/brand-openedx/refs/heads/ulmo/indigo/dist/light.min.css",
+            },
+        },
+        "dark": {
+            "urls": {
+                "default": "https://raw.githubusercontent.com/edly-io/brand-openedx/refs/heads/ulmo/indigo/dist/dark.min.css",
+                "brandOverride": "https://raw.githubusercontent.com/edly-io/brand-openedx/refs/heads/ulmo/indigo/dist/dark.min.css",
+            }
+        },
+    }
+}
+
+fstring = f"""
+MFE_CONFIG["PARAGON_THEME_URLS"] = {json.dumps(paragon_theme_urls)}
+"""
+
+hooks.Filters.ENV_PATCHES.add_item(("mfe-lms-common-settings", fstring))
