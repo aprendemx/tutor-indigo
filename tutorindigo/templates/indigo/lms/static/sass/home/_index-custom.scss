@@ -36,17 +36,15 @@ header.global-header {
     &__dialog {
         position: relative;
         z-index: 1;
-        margin: 0 0 32px 32px;
+        margin: 0 0 12px 12px;
         max-width: 440px;
-        width: calc(100% - 64px);
+        width: calc(100% - 24px);
     }
 
     &__img {
         display: block;
         width: 100%;
         height: auto;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
     }
 
     // Botón "x" dentro de la imagen (esquina superior derecha).
