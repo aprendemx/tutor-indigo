@@ -8,12 +8,15 @@ from openedx.core.djangolib.markup import HTML, Text
 %>
 
 <main id="main" aria-label="Content" tabindex="-1">
-    <!-- Popup inicial: oscurece el contenido y muestra un anuncio en la esquina inferior izquierda -->
+    <!-- Popup inicial: oscurece el contenido y muestra un anuncio en la esquina inferior izquierda.
+         El `src` es la URL de referencia del anuncio: para cambiar la imagen, reemplazá el archivo
+         detrás de esta URL (no hace falta tocar código). Si la URL no devuelve una imagen válida,
+         el popup no se muestra (ver js/popup-inicial.js). -->
     <div id="popup-inicial" class="popup-inicial" role="dialog" aria-modal="true" aria-label="Anuncio">
       <div class="popup-inicial__overlay" data-popup-close></div>
       <div class="popup-inicial__dialog">
         <button type="button" class="popup-inicial__close" aria-label="Cerrar anuncio" data-popup-close>&times;</button>
-        <img class="popup-inicial__img" src="https://picsum.photos/id/1043/440/540" alt="Anuncio" />
+        <img class="popup-inicial__img" src="https://aprende.gob.mx/images/banner.webp" alt="Anuncio" />
       </div>
     </div>
 
