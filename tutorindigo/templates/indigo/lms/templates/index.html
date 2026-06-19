@@ -8,6 +8,18 @@ from openedx.core.djangolib.markup import HTML, Text
 %>
 
 <main id="main" aria-label="Content" tabindex="-1">
+    <!-- Popup inicial: oscurece el contenido y muestra un anuncio en la esquina inferior izquierda.
+         El `src` es la URL de referencia del anuncio: para cambiar la imagen, reemplazá el archivo
+         detrás de esta URL (no hace falta tocar código). Si la URL no devuelve una imagen válida,
+         el popup no se muestra (ver js/popup-inicial.js). -->
+    <div id="popup-inicial" class="popup-inicial" role="dialog" aria-modal="true" aria-label="Anuncio">
+      <div class="popup-inicial__overlay" data-popup-close></div>
+      <div class="popup-inicial__dialog">
+        <button type="button" class="popup-inicial__close" aria-label="Cerrar anuncio" data-popup-close>&times;</button>
+        <img class="popup-inicial__img" src="https://aprende.gob.mx/images/banner.webp" alt="Anuncio" />
+      </div>
+    </div>
+
     <section class="home style-logout" style="padding: 0; background-color: #ece9e4;">
       <header style="background-color: #ece9e4;">
         <div class="outer-wrapper" style="background-color: #ece9e4;">
@@ -156,6 +168,7 @@ from openedx.core.djangolib.markup import HTML, Text
       });
     </script>
     <script type="text/javascript" src="${static.url('js/carousel-index.js')}"></script>
+    <script type="text/javascript" src="${static.url('js/popup-inicial.js')}"></script>
   </%block>
 
   % if show_signup_immediately is not UNDEFINED:

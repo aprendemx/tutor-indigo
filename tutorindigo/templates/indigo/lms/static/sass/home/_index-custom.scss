@@ -4,6 +4,89 @@ header.global-header {
     display: none !important;
 }
 
+// =========================================================
+// Popup inicial (anuncio en esquina inferior izquierda)
+// =========================================================
+.popup-inicial {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    // Ancla el contenido en la esquina inferior izquierda.
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-start;
+    // Estado inicial (oculto) para el fade-in.
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+
+    &.is-visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    // Capa que oscurece el resto del contenido.
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+    }
+
+    // Contenedor de la imagen, por encima del overlay.
+    &__dialog {
+        position: relative;
+        z-index: 1;
+        margin: 0 0 12px 12px;
+        max-width: 440px;
+        width: calc(100% - 24px);
+    }
+
+    &__img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    // Botón "x" dentro de la imagen (esquina superior derecha).
+    &__close {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        font-size: 22px;
+        line-height: 32px;
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        &:hover,
+        &:focus {
+            background: rgba(0, 0, 0, 0.8);
+            outline: none;
+        }
+    }
+}
+
+// Responsivo: en pantallas chicas, centrado y más angosto.
+@media (max-width: 600px) {
+    .popup-inicial {
+        align-items: center;
+        justify-content: center;
+
+        &__dialog {
+            margin: 0 16px;
+            max-width: 320px;
+            width: calc(100% - 32px);
+        }
+    }
+}
+
 // Background y reset de márgenes
 html,
 body,
