@@ -32,7 +32,6 @@ config: t.Dict[str, t.Dict[str, t.Any]] = {
             {"title": "Aviso de privacidad", "url": "/tos"},
             {"title": "Preguntas frecuentes", "url": "/help"},
             {"title": "Contacto", "url": "/contact"},
-            {"title": "Soporte", "url": "https://soporte.mexicox.gob.mx"},
         ],
     },
     "unique": {},
