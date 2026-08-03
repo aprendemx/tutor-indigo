@@ -204,7 +204,7 @@ const MobileViewHeader = () => {
     <div className="container-xl py-2 d-flex align-items-center justify-content-between">
       <a
         className="logo"
-        href={`${config.LMS_BASE_URL}/dashboard`}
+        href={`${config.LMS_BASE_URL}/`}
         style={Object.assign({}, { display: "flex", alignItems: "center" })}
       >
         <img
@@ -216,5 +216,26 @@ const MobileViewHeader = () => {
       </a>
       <ToggleThemeButton />
     </div>
+  );
+};
+
+const IndigoLogo = () => {
+  const config = getConfig();
+  const intl = useIntl();
+  const messages = {
+    "header.logo.altText": {
+      id: "header.logo.altText",
+      defaultMessage: "My Open edX",
+      description: "alt text for the header logo",
+    },
+  };
+  return (
+    <a className="logo" href={`${config.LMS_BASE_URL}/`}>
+      <img
+        className="d-block"
+        src={`${config.LMS_BASE_URL}/theming/asset/images/logo.png`}
+        alt={intl.formatMessage(messages["header.logo.altText"])}
+      />
+    </a>
   );
 };

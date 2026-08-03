@@ -263,6 +263,32 @@ for mfe in indigo_styled_mfes:
                 },
                 """,
                 ),
+                (
+                    # Point the desktop header logo at the site home instead of
+                    # the default /dashboard destination
+                    mfe,
+                    "logo_slot",
+                    """
+                {
+                    op: PLUGIN_OPERATIONS.Hide,
+                    widgetId: 'default_contents',
+                }
+                """,
+                ),
+                (
+                    mfe,
+                    "logo_slot",
+                    """
+                {
+                    op: PLUGIN_OPERATIONS.Insert,
+                    widget: {
+                        id: 'indigo_logo',
+                        type: DIRECT_PLUGIN,
+                        RenderWidget: IndigoLogo,
+                    },
+                },
+                """,
+                ),
             ]
         )
 
