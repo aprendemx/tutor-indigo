@@ -1,0 +1,4 @@
+{% raw %}{% load i18n %}
+{% autoescape off %}
+{% blocktrans %}Usted ha sido invitado a registrarse para {{ course_name }}{% endblocktrans %}
+{% endautoescape %}{% endraw %}
