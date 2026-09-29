@@ -56,12 +56,14 @@ from openedx.core.djangolib.markup import HTML, Text
             <!-- Botones de acción -->
             <div class="banner-content">
               <div class="banner-text-content">
-                % if not user.is_authenticated:
                 <div class="banner-buttons">
+                % if user.is_authenticated:
+                  <a href="/dashboard" class="btn-inicia-sesion">Mis cursos</a>
+                % else:
                   <a href="/register" class="btn-registrate">Regístrate</a>
                   <a href="/login" class="btn-inicia-sesion">Inicia sesión</a>
-                </div>
                 % endif
+                </div>
               </div>
             </div>
           </div>
