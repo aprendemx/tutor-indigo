@@ -1,5 +1,6 @@
 <%page expression_filter="h"/>
 <%! from django.utils.translation import gettext as _ %>
+<%! from lms.djangoapps.certificates.api import get_asset_url_by_slug %>
 <%namespace name='static' file='../static_content.html'/>
 <%
 course_mode_class = course_mode if course_mode else ''
@@ -260,6 +261,10 @@ course_mode_class = course_mode if course_mode else ''
 
 </style>
 
+% if customCss:
+<style>${customCss.replace("<", "") | n, decode.utf8}</style>
+% endif
+
 <main>
     <div class="accomplishment-rendering" style="background: url('${static.url("images/BACK.png")}')">
         <section class="contenedor_principal">
@@ -329,11 +334,22 @@ course_mode_class = course_mode if course_mode else ''
                     <!-- <div>
                             <img src="${static.url("images/logo.png")}" alt="${platform_name}">
                         </div> -->
-                    % if organization_logo:
-                        <div>
-                            <img class="img-unicef-grande" src="${organization_logo.url}" alt="${platform_name}">
-                        </div>
-                    % endif
+                    <!-- % if organization_logo: -->
+                    <!--     <div> -->
+                    <!--         <img class="img-unicef-grande" src="${organization_logo.url}" alt="${platform_name}"> -->
+                    <!--     </div> -->
+                    <!-- % endif -->
+                  <%
+                    logo_src = get_asset_url_by_slug(customLogoSlug) if customLogoSlug else None
+                    if not logo_src and organization_logo:
+                        logo_src = organization_logo.url
+                  %>
+                  % if logo_src:
+                    <div>
+                        <img class="img-unicef-grande" src="${logo_src}" alt="${platform_name}">
+                    </div>
+                  % endif
+
                 </div>
                 <div>
                     <img class="img-qr" src="https://certificados.mexicox.gob.mx/generate_qr/${certificate_id_number}/" height="100px">
